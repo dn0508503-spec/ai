@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About AI</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    background:#090912;
+    font-family:Segoe UI,sans-serif;
+    overflow-x:hidden;
+    color:white;
+}
+
+/* фоновые свечения */
+.glow1, .glow2{
+    position:absolute;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    filter:blur(140px);
+    z-index:0;
+}
+
+.glow1{
+    background:#ffb48c;
+    top:-120px;
+    left:-120px;
+}
+
+.glow2{
+    background:#9f6dff;
+    bottom:-120px;
+    right:-120px;
+}
+
+/* navbar */
+.navbar{
+    backdrop-filter:blur(15px);
+    background:rgba(0,0,0,0.3)!important;
+}
+
+/* hero */
+.hero{
+    min-height:60vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    z-index:2;
+}
+
+.title{
+    font-size:4rem;
+    font-weight:900;
+}
+
+
+/* карточки */
+.card-ai{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:20px;
+    transition:.4s;
+}
+
+.card-ai:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px rgba(159,109,255,0.2);
+}
+
+/* анимация появления */
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#bdbdd3;
+}
+.card-group{
+    gap:25px;
+    margin:40px auto;
+    max-width:1300px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05)!important;
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.08)!important;
+    border-radius:24px!important;
+    overflow:hidden;
+    color:white!important;
+
+    min-height:100%;
+    height:100%;
+
+    transition:
+    transform .5s ease,
+    box-shadow .5s ease,
+    border-color .5s ease;
+
+    position:relative;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.12),
+        transparent,
+        rgba(159,109,255,.15)
+    );
+    opacity:0;
+    transition:.5s;
+    pointer-events:none;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+.card:hover{
+    transform:
+    translateY(-12px)
+    rotateX(5deg)
+    rotateY(-5deg);
+
+    box-shadow:
+    0 20px 40px rgba(159,109,255,.25),
+    0 0 50px rgba(255,180,140,.15);
+
+    border-color:rgba(159,109,255,.4)!important;
+}
+
+.card-img-top{
+    height:280px;
+    object-fit:cover;
+    transition:1s;
+}
+
+.card:hover .card-img-top{
+    transform:scale(1.08);
+}
+
+.card-body{
+    display:flex;
+    flex-direction:column;
+}
+
+.card-title{
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+.card-text{
+    color:#d5d5e5;
+    line-height:1.7;
+    flex-grow:1;
+}
+
+.card-footer{
+    background:transparent!important;
+    border-top:1px solid rgba(255,255,255,.08)!important;
+}
+
+.card-footer small{
+    color:#a9a9bf!important;
+}
+.card{
+    opacity:0;
+    transform:translateY(50px);
+    animation:cardShow 1s forwards;
+}
+
+.card:nth-child(1){animation-delay:.1s;}
+.card:nth-child(2){animation-delay:.3s;}
+.card:nth-child(3){animation-delay:.5s;}
+
+@keyframes cardShow{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+.card-group{
+    align-items:stretch;
+}
+
+.card{
+    display:flex;
+    flex-direction:column;
+}
+
+.card-body{
+    flex:1;
+}
+.card-title{
+    background:linear-gradient(
+        90deg,
+        #ffb48c,
+        #9f6dff
+    );
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.footer-ai{
+    position:relative;
+    margin-top:120px;
+    padding:90px 20px 40px;
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        180deg,
+        transparent,
+        rgba(159,109,255,.08),
+        rgba(255,180,140,.08)
+    );
+
+    text-align:center;
+}
+
+.footer-glow{
+    position:absolute;
+    width:500px;
+    height:500px;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(159,109,255,.25),
+        transparent 70%
+    );
+
+    filter:blur(120px);
+    animation:pulseGlow 6s infinite ease-in-out;
+}
+
+
+
+.footer-ai p{
+    position:relative;
+    z-index:2;
+
+    max-width:650px;
+    margin:auto;
+
+    color:#cfcfe0;
+    font-size:1.1rem;
+    line-height:1.8;
+}
+
+.footer-links{
+    position:relative;
+    z-index:2;
+
+    display:flex;
+    justify-content:center;
+    gap:35px;
+
+    margin-top:35px;
+}
+
+.footer-links a{
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+
+    transition:.4s;
+}
+
+.footer-links a:hover{
+    color:#9f6dff;
+    transform:translateY(-4px);
+}
+
+.footer-line{
+    width:220px;
+    height:2px;
+
+    margin:35px auto;
+
+    background:
+    linear-gradient(
+        90deg,
+        transparent,
+        #9f6dff,
+        #ffb48c,
+        transparent
+    );
+}
+
+.footer-ai span{
+    color:#a5a5c4;
+    position:relative;
+    z-index:2;
+}
+
+@keyframes pulseGlow{
+
+    0%,100%{
+        transform:translate(-50%,-50%) scale(1);
+    }
+
+    50%{
+        transform:translate(-50%,-50%) scale(1.2);
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow1"></div>
+<div class="glow2"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<div class="container">
+
+<a class="navbar-brand fw-bold" href="index.html">
+🤖 AI World
+</a>
+
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="menu">
+
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item">
+<a class="nav-link" href="index.html">Home</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link active" href="about.html">About AI</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="use.html">Use</a>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero container">
+
+<div class="reveal">
+
+<h1 class="title">
+Что такое <span class="gradient">Искусственный интеллект</span>?
+</h1>
+
+<p style="color:#cfcfe0; max-width:700px;">
+Искусственный интеллект (AI) — это технологии, которые позволяют компьютерам
+выполнять задачи, требующие человеческого мышления: анализ, обучение, генерация текста, изображений и кода.
+</p>
+
+</div>
+
+</section>
+
+<!-- INFO -->
+<section class="container py-5">
+
+<div class="row g-4">
+
+<div class="col-md-4 reveal">
+<div class="card-ai">
+<h3>🧠 Обучение</h3>
+<p>ИИ учится на огромных данных и становится умнее с каждым запросом.</p>
+</div>
+</div>
+
+<div class="col-md-4 reveal">
+<div class="card-ai">
+<h3>⚡ Скорость</h3>
+<p>Он может выполнять задачи за секунды, которые человеку нужны часы.</p>
+</div>
+</div>
+
+<div class="col-md-4 reveal">
+<div class="card-ai">
+<h3>🎨 Создание</h3>
+<p>Генерирует изображения, сайты, музыку и тексты.</p>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<div class="card-group">
+  <div class="card">
+    <img src="https://i.pinimg.com/1200x/ee/54/86/ee5486ae3ae2c1cfde2a2f7e712f403a.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">🤖 ChatGPT</h5>
+      <p class="card-text">Бесплатно:
+
+Ответы на вопросы
+Помощь с учебой
+Написание текстов
+Создание изображений
+
+Premium
+
+💰 Около 20 долларов в месяц
+
+Что дает:
+
+✅ Более умный ИИ
+✅ Быстрые ответы
+✅ Больше генераций изображений
+✅ Лучше помогает с кодом и проектами.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://i.pinimg.com/736x/85/a2/7d/85a27d3cde246b1d60956aee92508053.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">🌟 Gemini</h5>
+      <p class="card-text">Бесплатно:
+
+Поиск информации
+Помощь с учебой
+Написание текстов
+
+Premium
+
+💰 Около 20 долларов в месяц
+
+Что дает:
+
+✅ Более мощные модели ИИ
+✅ Большие лимиты запросов
+✅ Дополнительные функции Google</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://i.pinimg.com/1200x/f8/86/5f/f8865f2664d98cf0ae45fdde513d2cb4.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">📊 Gamma</h5>
+      <p class="card-text">Бесплатно:
+
+Создание презентаций
+Создание документов
+
+Premium
+
+💰 От 8–10 долларов в месяц
+
+Что дает:
+
+✅ Больше презентаций
+✅ Премиум-шаблоны
+✅ Экспорт в PDF и PowerPoint</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated 3 mins ago</small>
+    </div>
+  </div>
+</div>
+<div class="card-group">
+  <div class="card">
+    <img src="https://i.pinimg.com/1200x/16/35/ed/1635ed330466b635fdaec1bd673d0da7.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">🎭 HeyGen</h5>
+      <p class="card-text">Бесплатно:
+
+Несколько видео в месяц
+ИИ-аватары
+
+Premium
+
+💰 От 24$/мес
+
+Что дает:
+
+✅ Реалистичные говорящие аватары
+✅ Перевод видео на другие языки
+✅ Клонирование голоса
+✅ Видео без водяного знака</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://i.pinimg.com/736x/6c/9f/26/6c9f265d15073bbebb74bbcf59c80daf.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">🧠 Claude</h5>
+      <p class="card-text">Бесплатно:
+
+Ответы на вопросы
+Работа с текстами
+
+Premium
+
+💰 Около 20 долларов в месяц
+
+Что дает:
+
+✅ Более длинные ответы
+✅ Большие лимиты
+✅ Улучшенный анализ документов</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://i.pinimg.com/1200x/c3/8d/cd/c38dcd3669b5fac89d983601efe218ef.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">🔍 Perplexity AI</h5>
+      <p class="card-text">Бесплатно:
+
+Поиск информации
+Ответы с источниками
+
+Premium
+
+💰 Около 20 долларов в месяц
+
+Что дает:
+
+✅ Продвинутый поиск
+✅ Доступ к лучшим моделям ИИ
+✅ Более глубокие исследования</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated 3 mins ago</small>
+    </div>
+  </div>
+</div>
+<div class="card-group">
+  <div class="card">
+    <img src="https://i.pinimg.com/736x/49/53/93/49539310da13a8f12c4fef26409024b5.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">🎨 Leonardo AI</h5>
+      <p class="card-text">Бесплатно:
+
+Ежедневные токены для генерации
+
+Premium
+
+💰 От 10$/мес
+
+Что дает:
+
+✅ Больше генераций
+✅ Создание персонажей
+✅ Генерация игровых объектов
+✅ Высокое качество картинок</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://i.pinimg.com/1200x/dd/63/7f/dd637f9651bf522279986147e9b5538c.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">🎬 Kling AI</h5>
+      <p class="card-text">Бесплатно:
+
+Ограниченное число видео
+
+Premium
+
+💰 От 10$/мес
+
+Что дает:
+
+✅ Реалистичные видео
+✅ Более длинные ролики
+✅ Быстрая генерация</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://i.pinimg.com/1200x/3c/e4/e0/3ce4e0252898344adca871d3538403c8.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">🗣️ ElevenLabs</h5>
+      <p class="card-text">Бесплатно:
+
+Ограниченная озвучка текста
+
+Premium
+
+💰 От 5 долларов в месяц
+
+Что дает:
+
+✅ Больше часов озвучки
+✅ Создание собственных голосов
+✅ Высокое качество речи</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-body-secondary">Last updated 3 mins ago</small>
+    </div>
+  </div>
+</div>
+
+<section class="container py-5 reveal">
+
+<h2 class="text-center mb-4">Где используется ИИ</h2>
+
+<div class="card-ai text-center">
+
+<p>
+🤖 ChatGPT — тексты и помощь<br>
+🎨 Canva AI — дизайн<br>
+💻 Figma AI — интерфейсы<br>
+🚀 Bolt / Lovable — создание сайтов<br>
+</p>
+
+</div>
+
+</section>
+
+<footer class="footer-ai">
+
+<div class="footer-glow"></div>
+
+<div class="container">
+
+    <h2>🤖 AI World</h2>
+
+    <p>
+        Исследуй мир искусственного интеллекта, находи лучшие нейросети
+        и открывай технологии будущего уже сегодня.
+    </p>
+
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About AI</a>
+        <a href="use.html">Use</a>
+    </div>
+
+    <div class="footer-line"></div>
+
+    <span>
+        © 2026 AI World • Made with ❤️ by Dildora
+    </span>
+
+</div>
+
+</footer>
+
+<script>
+// scroll animation
+const items = document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll", () => {
+    items.forEach(el => {
+        if(el.getBoundingClientRect().top < window.innerHeight - 100){
+            el.classList.add("active");
+        }
+    });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
